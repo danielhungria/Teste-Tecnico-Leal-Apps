@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/HomeFragment">
+
+    <fragment
+        android:id="@+id/HomeFragment"
+        android:name="br.com.dhungria.lealappsworkout.ui.home.HomeFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/home_fragment">
+
+        <action
+            android:id="@+id/action_homefragment_to_exercisefragment"
+            app:destination="@id/ExerciseFragment"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/ExerciseFragment"
+        android:name="br.com.dhungria.lealappsworkout.ui.exercise.ExerciseFragment"
+        android:label="Exercise Fragment"
+        tools:layout="@layout/exercise_fragment">
+    </fragment>
+
+</navigation>
