@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
         binding.recyclerHomeFragment.apply {
             adapter = homeAdapter.apply {
                 submitList(List(10){
-                    "Train $it"
+                    "Training $it"
                 })
             }
             layoutManager = GridLayoutManager(requireContext(), 2)
