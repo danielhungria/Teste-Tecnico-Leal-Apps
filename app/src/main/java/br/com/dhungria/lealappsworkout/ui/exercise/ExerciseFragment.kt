@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import br.com.dhungria.lealappsworkout.adapter.ExerciseAdapter
 import br.com.dhungria.lealappsworkout.databinding.ExerciseFragmentBinding
+import br.com.dhungria.lealappsworkout.viewmodel.ExerciseViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,6 +20,9 @@ class ExerciseFragment: Fragment() {
 
     private val exerciseAdapter = ExerciseAdapter()
 
+    private val viewModel: ExerciseViewModel by viewModels()
+
+
     private fun setupItemBackMenuBar(){
         binding.toolbarExerciseFragment.setOnClickListener {
             findNavController().popBackStack()
@@ -26,12 +31,14 @@ class ExerciseFragment: Fragment() {
 
     private fun setupRecycler(){
         binding.recyclerExerciseFragment.apply {
-            adapter = exerciseAdapter.apply {
-                submitList(List(10){
-                    "Push Up $it"
-                })
-            }
+            adapter = exerciseAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
+        }
+    }
+
+    private fun setupButtonAddExercise(){
+        binding.buttonAddExerciseFragment.setOnClickListener {
+            viewModel.insertTraining()
         }
     }
 
@@ -49,6 +56,11 @@ class ExerciseFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecycler()
         setupItemBackMenuBar()
+        setupButtonAddExercise()
+        viewModel.exerciseList.observe(viewLifecycleOwner){
+            exerciseAdapter.updateList(it)
+        }
+        viewModel.fetchScreenList()
     }
 
 }

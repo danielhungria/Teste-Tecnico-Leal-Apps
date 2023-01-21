@@ -12,6 +12,6 @@ data class Training(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val name: Int = 0,
-    val description: String = "",
-    val data: Timestamp? = null
+    val description: String = ""
+//    val data: Timestamp? = null
 ): Parcelable

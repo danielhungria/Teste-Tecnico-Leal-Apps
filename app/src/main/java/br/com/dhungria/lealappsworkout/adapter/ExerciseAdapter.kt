@@ -6,15 +6,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.dhungria.lealappsworkout.databinding.CardviewRecyclerExercisesFragmentBinding
+import br.com.dhungria.lealappsworkout.models.Exercise
 
-class ExerciseAdapter: ListAdapter<String, ExerciseAdapter.ViewHolder>(DiffCallback()) {
+class ExerciseAdapter: ListAdapter<Exercise, ExerciseAdapter.ViewHolder>(DiffCallback()) {
+
+    private var fullList = mutableListOf<Exercise>()
+
+    fun updateList(listExerciseList: List<Exercise>) {
+        fullList = listExerciseList.toMutableList()
+        submitList(fullList)
+    }
 
     class ViewHolder (
         private val binding: CardviewRecyclerExercisesFragmentBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(currentItem: String) {
-            binding.textviewTrainCardRecyclerExercise.text = currentItem
+        fun bind(currentItem: Exercise) {
+            binding.textviewTrainCardRecyclerExercise.text = currentItem.name.toString()
+            binding.textviewTrainDescriptionCardRecyclerExercise.text = currentItem.observation
         }
     }
 
@@ -28,11 +37,11 @@ class ExerciseAdapter: ListAdapter<String, ExerciseAdapter.ViewHolder>(DiffCallb
         return holder.bind(currentItem)
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String) =
+    class DiffCallback : DiffUtil.ItemCallback<Exercise>() {
+        override fun areItemsTheSame(oldItem: Exercise, newItem: Exercise) =
             oldItem == newItem
 
-        override fun areContentsTheSame(oldItem: String, newItem: String) =
+        override fun areContentsTheSame(oldItem: Exercise, newItem: Exercise) =
             oldItem == newItem
     }
 
