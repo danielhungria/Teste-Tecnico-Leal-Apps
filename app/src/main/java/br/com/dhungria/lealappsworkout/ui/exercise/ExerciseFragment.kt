@@ -8,13 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import br.com.dhungria.lealappsworkout.R
 import br.com.dhungria.lealappsworkout.adapter.ExerciseAdapter
 import br.com.dhungria.lealappsworkout.databinding.ExerciseFragmentBinding
 import br.com.dhungria.lealappsworkout.viewmodel.ExerciseViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ExerciseFragment: Fragment() {
+class ExerciseFragment : Fragment() {
 
     private lateinit var binding: ExerciseFragmentBinding
 
@@ -23,22 +24,22 @@ class ExerciseFragment: Fragment() {
     private val viewModel: ExerciseViewModel by viewModels()
 
 
-    private fun setupItemBackMenuBar(){
+    private fun setupItemBackMenuBar() {
         binding.toolbarExerciseFragment.setOnClickListener {
             findNavController().popBackStack()
         }
     }
 
-    private fun setupRecycler(){
+    private fun setupRecycler() {
         binding.recyclerExerciseFragment.apply {
             adapter = exerciseAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
         }
     }
 
-    private fun setupButtonAddExercise(){
+    private fun setupButtonAddExercise() {
         binding.buttonAddExerciseFragment.setOnClickListener {
-            viewModel.insertTraining()
+            findNavController().navigate(R.id.action_exercisefragment_to_addtraining)
         }
     }
 
@@ -57,7 +58,7 @@ class ExerciseFragment: Fragment() {
         setupRecycler()
         setupItemBackMenuBar()
         setupButtonAddExercise()
-        viewModel.exerciseList.observe(viewLifecycleOwner){
+        viewModel.exerciseList.observe(viewLifecycleOwner) {
             exerciseAdapter.updateList(it)
         }
         viewModel.fetchScreenList()

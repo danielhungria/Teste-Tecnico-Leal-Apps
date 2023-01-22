@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2569230769230769" />
+        <entry key="app/src/main/res/layout/add_screen_fragment.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/add_training_fragment.xml" value="0.24703155517578126" />
         <entry key="app/src/main/res/layout/cardview_recycler_exercises_fragment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/cardview_recycler_home_fragment.xml" value="0.335" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.2569230769230769" />

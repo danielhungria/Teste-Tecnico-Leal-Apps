@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
 
     private fun setupButtonAddTraining(){
         binding.buttonAddTrainingHomeFragment.setOnClickListener {
-            viewModel.insertTraining()
+            findNavController().navigate(R.id.action_homefragment_to_addtraining)
         }
     }
 

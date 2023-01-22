@@ -13,9 +13,10 @@
 
         <action
             android:id="@+id/action_homefragment_to_exercisefragment"
-            app:destination="@id/ExerciseFragment"
-            />
+            app:destination="@id/ExerciseFragment" />
 
+        <action android:id="@+id/action_homefragment_to_addtraining"
+            app:destination="@id/AddTrainingFragment"/>
     </fragment>
 
     <fragment
@@ -23,6 +24,24 @@
         android:name="br.com.dhungria.lealappsworkout.ui.exercise.ExerciseFragment"
         android:label="Exercise Fragment"
         tools:layout="@layout/exercise_fragment">
+
+        <action android:id="@+id/action_exercisefragment_to_addtraining"
+            app:destination="@id/AddExerciseFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/AddTrainingFragment"
+        android:name="br.com.dhungria.lealappsworkout.ui.home.AddTrainingFragment"
+        android:label="Add Training"
+        tools:layout="@layout/add_training_fragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/AddExerciseFragment"
+        android:name="br.com.dhungria.lealappsworkout.ui.exercise.AddExerciseFragment"
+        android:label="Add Exercise"
+        tools:layout="@layout/add_training_fragment">
     </fragment>
 
 </navigation>

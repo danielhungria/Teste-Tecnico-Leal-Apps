@@ -28,14 +28,6 @@ class TrainingViewModel @Inject constructor(
         }
     }
 
-    fun insertTraining(){
-        viewModelScope.launch {
-            val saveTraining = Training(
-                name = 1,
-                description = "Treino superior"
-            )
-            trainingRepository.insert(saveTraining)
-        }
-    }
+
 
 }
