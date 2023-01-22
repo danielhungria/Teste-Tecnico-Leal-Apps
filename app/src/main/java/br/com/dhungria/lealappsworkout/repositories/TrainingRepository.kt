@@ -10,4 +10,6 @@ class TrainingRepository @Inject constructor(private val trainingDao: TrainingDa
 
     suspend fun insert(training: Training) = trainingDao.insert(training)
 
+    suspend fun delete(training: Training) = trainingDao.delete(training)
+
 }

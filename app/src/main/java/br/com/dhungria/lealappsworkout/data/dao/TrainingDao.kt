@@ -1,9 +1,6 @@
 package br.com.dhungria.lealappsworkout.data.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import br.com.dhungria.lealappsworkout.models.Training
 import kotlinx.coroutines.flow.Flow
 
@@ -15,5 +12,8 @@ interface TrainingDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(training: Training)
+
+    @Delete
+    suspend fun delete(training: Training)
 
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import br.com.dhungria.lealappsworkout.constants.Constants.TRAINING_LIST_ID
 import br.com.dhungria.lealappsworkout.databinding.AddTrainingFragmentBinding
 import br.com.dhungria.lealappsworkout.viewmodel.AddExerciseViewModel
 import br.com.dhungria.lealappsworkout.viewmodel.AddTrainingViewModel
@@ -18,6 +19,8 @@ class AddExerciseFragment: Fragment() {
     private lateinit var binding: AddTrainingFragmentBinding
 
     private val viewModel: AddExerciseViewModel by viewModels()
+
+    private val trainingListId by lazy { arguments?.getInt(TRAINING_LIST_ID) }
 
 
     private fun setupItemBackMenuBar(){
@@ -32,7 +35,8 @@ class AddExerciseFragment: Fragment() {
         buttonDoneAddTrainingFragment.setOnClickListener {
             viewModel.insertExercise(
                 name = editTextName.text.toString(),
-                observation = editTextDescription.text.toString()
+                observation = editTextDescription.text.toString(),
+                idTraining = trainingListId
             )
             findNavController().popBackStack()
         }

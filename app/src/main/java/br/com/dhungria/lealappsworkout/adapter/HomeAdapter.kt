@@ -9,8 +9,8 @@ import br.com.dhungria.lealappsworkout.databinding.CardviewRecyclerHomeFragmentB
 import br.com.dhungria.lealappsworkout.models.Training
 
 class HomeAdapter(
-    val onClick:(Boolean) -> Unit
-): ListAdapter<Training, HomeAdapter.ViewHolder>(DiffCallback()) {
+    val onClick: (Training) -> Unit
+) : ListAdapter<Training, HomeAdapter.ViewHolder>(DiffCallback()) {
 
     private var fullList = mutableListOf<Training>()
 
@@ -19,7 +19,7 @@ class HomeAdapter(
         submitList(fullList)
     }
 
-    inner class ViewHolder (
+    inner class ViewHolder(
         private val binding: CardviewRecyclerHomeFragmentBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -29,7 +29,7 @@ class HomeAdapter(
                 textviewTrainDescriptionCardRecycler.text = currentItem.description
 
                 root.setOnClickListener {
-                    onClick(true)
+                    onClick(currentItem)
                 }
             }
         }
@@ -37,7 +37,11 @@ class HomeAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = CardviewRecyclerHomeFragmentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = CardviewRecyclerHomeFragmentBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return ViewHolder(binding)
     }
 
@@ -48,7 +52,7 @@ class HomeAdapter(
 
     class DiffCallback : DiffUtil.ItemCallback<Training>() {
         override fun areItemsTheSame(oldItem: Training, newItem: Training) =
-            oldItem == newItem
+            oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: Training, newItem: Training) =
             oldItem == newItem

@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ExerciseViewModel @Inject constructor(
     private val exerciseRepository: ExerciseRepository
-): ViewModel() {
+) : ViewModel() {
 
     private val _exerciseList = MutableLiveData<List<Exercise>>()
     val exerciseList: LiveData<List<Exercise>>
@@ -27,15 +27,8 @@ class ExerciseViewModel @Inject constructor(
         }
     }
 
-    fun insertTraining(){
-        viewModelScope.launch {
-            val saveExercise = Exercise(
-                name = 1,
-                observation = "Push Up",
-                idTraining = 0
-            )
-            exerciseRepository.insert(saveExercise)
-        }
+    fun onItemSwiped(exercise: Exercise) = viewModelScope.launch {
+        exerciseRepository.delete(exercise)
     }
 
 }

@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TrainingViewModel @Inject constructor(
     private val trainingRepository: TrainingRepository
-) : ViewModel(){
+) : ViewModel() {
 
     private val _trainingList = MutableLiveData<List<Training>>()
     val trainingList: LiveData<List<Training>>
@@ -28,6 +28,8 @@ class TrainingViewModel @Inject constructor(
         }
     }
 
-
+    fun onItemSwiped(training: Training) = viewModelScope.launch {
+        trainingRepository.delete(training)
+    }
 
 }
