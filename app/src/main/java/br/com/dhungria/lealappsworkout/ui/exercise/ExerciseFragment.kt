@@ -94,6 +94,9 @@ class ExerciseFragment : Fragment() {
         viewModel.exerciseList.observe(viewLifecycleOwner) {
             exerciseAdapter.updateList(it)
         }
+        trainingList?.id?.let {
+            viewModel.setup(it)
+        }
         viewModel.fetchScreenList()
     }
 

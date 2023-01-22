@@ -8,6 +8,8 @@ class ExerciseRepository @Inject constructor(private val exerciseDao: ExerciseDa
 
     fun getAll() = exerciseDao.getAll()
 
+    fun getAllExercisesOfTraining(idTraining: Int) = exerciseDao.getAllExercisesOfTraining(idTraining)
+
     suspend fun insert(exercise: Exercise) = exerciseDao.insert(exercise)
 
     suspend fun delete(exercise: Exercise) = exerciseDao.delete(exercise)

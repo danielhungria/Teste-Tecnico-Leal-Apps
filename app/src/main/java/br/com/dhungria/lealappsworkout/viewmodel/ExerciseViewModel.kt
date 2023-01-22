@@ -15,13 +15,19 @@ class ExerciseViewModel @Inject constructor(
     private val exerciseRepository: ExerciseRepository
 ) : ViewModel() {
 
+    private var idTraining: Int = 0
+
     private val _exerciseList = MutableLiveData<List<Exercise>>()
     val exerciseList: LiveData<List<Exercise>>
         get() = _exerciseList
 
+    fun setup(idTraining: Int) {
+        this.idTraining = idTraining
+    }
+
     fun fetchScreenList() {
         viewModelScope.launch {
-            exerciseRepository.getAll().collect {
+            exerciseRepository.getAllExercisesOfTraining(idTraining).collect {
                 _exerciseList.postValue(it)
             }
         }
