@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.dhungria.lealappsworkout.R
 import br.com.dhungria.lealappsworkout.databinding.CardviewRecyclerExercisesFragmentBinding
+import br.com.dhungria.lealappsworkout.extensions.tryLoadImage
 import br.com.dhungria.lealappsworkout.models.Exercise
-import br.com.dhungria.lealappsworkout.models.Training
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
 
 class ExerciseAdapter(
     val onLongPressEdit: (Exercise) -> Unit,
@@ -57,14 +59,13 @@ class ExerciseAdapter(
             binding.apply {
                 textviewTrainCardRecyclerExercise.text = currentItem.name.toString()
                 textviewTrainDescriptionCardRecyclerExercise.text = currentItem.observation
+                imageviewTrainCardRecyclerExercise.tryLoadImage(currentItem.image)
 
                 root.setOnLongClickListener {
                     showMenu(it.context, it , R.menu.menu_popup_training_fragment, currentItem)
                     true
                 }
             }
-
-
         }
     }
 

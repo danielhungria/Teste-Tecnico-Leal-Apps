@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "359392260568",
+    "project_id": "fir-lealapps",
+    "storage_bucket": "fir-lealapps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359392260568:android:3866b03b1be592006002ad",
+        "android_client_info": {
+          "package_name": "br.com.dhungria.lealappsworkout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359392260568-si9i5o1c55jalum6fvmqu5p89h6a9k6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClPk2LIrk65BTMS4mrNOphHWddFM9GqNY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359392260568-si9i5o1c55jalum6fvmqu5p89h6a9k6p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

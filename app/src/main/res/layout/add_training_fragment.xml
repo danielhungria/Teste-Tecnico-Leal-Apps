@@ -45,7 +45,8 @@
             android:id="@+id/imageView_add_training"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/exercise1" />
+            android:src="@drawable/imagem_padrao"
+            android:scaleType="centerCrop"/>
 
     </com.google.android.material.card.MaterialCardView>
 

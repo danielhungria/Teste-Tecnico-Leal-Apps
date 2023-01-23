@@ -25,7 +25,7 @@ class AddExerciseViewModel @Inject constructor(private val exerciseRepository: E
     fun insertExercise(
         name: String,
         observation: String,
-        image: String = "",
+        image: String? = "",
         idTraining: Int?
     ){
         viewModelScope.launch {
