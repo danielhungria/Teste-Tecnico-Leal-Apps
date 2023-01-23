@@ -14,4 +14,6 @@ class ExerciseRepository @Inject constructor(private val exerciseDao: ExerciseDa
 
     suspend fun delete(exercise: Exercise) = exerciseDao.delete(exercise)
 
+    suspend fun update(exercise: Exercise) = exerciseDao.update(exercise)
+
 }

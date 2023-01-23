@@ -13,6 +13,15 @@ import javax.inject.Inject
 @HiltViewModel
 class AddExerciseViewModel @Inject constructor(private val exerciseRepository: ExerciseRepository) : ViewModel() {
 
+    private var exerciseID = 0
+
+    private var isEditMode = false
+
+    fun setupEditMode(exerciseID: Int){
+        this.exerciseID = exerciseID
+        isEditMode = true
+    }
+
     fun insertExercise(
         name: String,
         observation: String,
@@ -21,12 +30,18 @@ class AddExerciseViewModel @Inject constructor(private val exerciseRepository: E
     ){
         viewModelScope.launch {
             val saveExercise = Exercise(
+                id = exerciseID,
                 name = name.toInt(),
                 observation = observation,
                 image = image,
                 idTraining = idTraining
             )
-            exerciseRepository.insert(saveExercise)
+            if (isEditMode){
+                exerciseRepository.update(saveExercise)
+            }else{
+                exerciseRepository.insert(saveExercise)
+            }
+
         }
     }
 

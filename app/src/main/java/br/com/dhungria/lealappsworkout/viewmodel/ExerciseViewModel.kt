@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.dhungria.lealappsworkout.models.Exercise
+import br.com.dhungria.lealappsworkout.models.Training
 import br.com.dhungria.lealappsworkout.repositories.ExerciseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -34,6 +35,10 @@ class ExerciseViewModel @Inject constructor(
     }
 
     fun onItemSwiped(exercise: Exercise) = viewModelScope.launch {
+        exerciseRepository.delete(exercise)
+    }
+
+    fun delete(exercise: Exercise) = viewModelScope.launch {
         exerciseRepository.delete(exercise)
     }
 

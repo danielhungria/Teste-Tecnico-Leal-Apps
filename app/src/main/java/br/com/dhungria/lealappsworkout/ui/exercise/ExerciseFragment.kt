@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import br.com.dhungria.lealappsworkout.R
 import br.com.dhungria.lealappsworkout.adapter.ExerciseAdapter
+import br.com.dhungria.lealappsworkout.constants.Constants.EXERCISE_LIST_TO_EDIT
 import br.com.dhungria.lealappsworkout.constants.Constants.TRAINING_LIST_ID
 import br.com.dhungria.lealappsworkout.constants.Constants.TRAINING_LIST_TO_EDIT
 import br.com.dhungria.lealappsworkout.databinding.ExerciseFragmentBinding
@@ -25,11 +26,22 @@ class ExerciseFragment : Fragment() {
 
     private lateinit var binding: ExerciseFragmentBinding
 
-    private val exerciseAdapter = ExerciseAdapter()
-
     private val viewModel: ExerciseViewModel by viewModels()
 
     private val trainingList by lazy { arguments?.getParcelable<Training>(TRAINING_LIST_TO_EDIT) }
+
+    private val exerciseAdapter = ExerciseAdapter(onLongPressEdit = {
+        findNavController().navigate(
+            R.id.action_exercisefragment_to_addtraining,
+            bundleOf(
+                EXERCISE_LIST_TO_EDIT to it,
+                TRAINING_LIST_ID to trainingList?.id
+            )
+        )
+    },
+        onLongPressDelete = {
+            viewModel.delete(it)
+        })
 
 
     private fun setupItemBackMenuBar() {

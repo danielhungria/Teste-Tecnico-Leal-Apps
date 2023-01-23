@@ -1,14 +1,22 @@
 package br.com.dhungria.lealappsworkout.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import br.com.dhungria.lealappsworkout.R
 import br.com.dhungria.lealappsworkout.databinding.CardviewRecyclerExercisesFragmentBinding
 import br.com.dhungria.lealappsworkout.models.Exercise
+import br.com.dhungria.lealappsworkout.models.Training
 
-class ExerciseAdapter: ListAdapter<Exercise, ExerciseAdapter.ViewHolder>(DiffCallback()) {
+class ExerciseAdapter(
+    val onLongPressEdit: (Exercise) -> Unit,
+    val onLongPressDelete: (Exercise) -> Unit
+): ListAdapter<Exercise, ExerciseAdapter.ViewHolder>(DiffCallback()) {
 
     private var fullList = mutableListOf<Exercise>()
 
@@ -17,13 +25,46 @@ class ExerciseAdapter: ListAdapter<Exercise, ExerciseAdapter.ViewHolder>(DiffCal
         submitList(fullList)
     }
 
-    class ViewHolder (
+    private fun showMenu(
+        context: Context,
+        view: View,
+        menuPopupMenu: Int,
+        exercise: Exercise
+    ) {
+        val popup = PopupMenu(context, view)
+        popup.menuInflater.inflate(menuPopupMenu, popup.menu)
+        popup.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.edit_popup_menu -> {
+                    onLongPressEdit(exercise)
+                    true
+                }
+                R.id.delete_popup_menu -> {
+                    onLongPressDelete(exercise)
+                    true
+                }
+                else -> false
+            }
+        }
+        popup.show()
+    }
+
+    inner class ViewHolder (
         private val binding: CardviewRecyclerExercisesFragmentBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(currentItem: Exercise) {
-            binding.textviewTrainCardRecyclerExercise.text = currentItem.name.toString()
-            binding.textviewTrainDescriptionCardRecyclerExercise.text = currentItem.observation
+            binding.apply {
+                textviewTrainCardRecyclerExercise.text = currentItem.name.toString()
+                textviewTrainDescriptionCardRecyclerExercise.text = currentItem.observation
+
+                root.setOnLongClickListener {
+                    showMenu(it.context, it , R.menu.menu_popup_training_fragment, currentItem)
+                    true
+                }
+            }
+
+
         }
     }
 
