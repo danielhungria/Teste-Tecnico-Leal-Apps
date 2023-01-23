@@ -30,6 +30,14 @@ class HomeFragment : Fragment() {
             R.id.action_homefragment_to_exercisefragment,
             bundleOf(TRAINING_LIST_TO_EDIT to it)
         )
+    }, onLongPressEdit = {
+        findNavController().navigate(
+            R.id.action_homefragment_to_addtraining,
+            bundleOf(TRAINING_LIST_TO_EDIT to it)
+        )
+    },
+    onLongPressDelete = {
+        viewModel.delete(it)
     })
 
     private fun setupRecycler(){

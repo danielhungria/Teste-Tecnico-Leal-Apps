@@ -32,4 +32,8 @@ class TrainingViewModel @Inject constructor(
         trainingRepository.delete(training)
     }
 
+    fun delete(training: Training) = viewModelScope.launch {
+        trainingRepository.delete(training)
+    }
+
 }

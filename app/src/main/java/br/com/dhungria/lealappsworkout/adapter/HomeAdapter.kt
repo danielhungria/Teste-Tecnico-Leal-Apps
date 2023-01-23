@@ -1,18 +1,48 @@
 package br.com.dhungria.lealappsworkout.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import br.com.dhungria.lealappsworkout.R
 import br.com.dhungria.lealappsworkout.databinding.CardviewRecyclerHomeFragmentBinding
 import br.com.dhungria.lealappsworkout.models.Training
 
 class HomeAdapter(
-    val onClick: (Training) -> Unit
+    val onClick: (Training) -> Unit,
+    val onLongPressEdit: (Training) -> Unit,
+    val onLongPressDelete: (Training) -> Unit
 ) : ListAdapter<Training, HomeAdapter.ViewHolder>(DiffCallback()) {
 
     private var fullList = mutableListOf<Training>()
+
+    private fun showMenu(
+        context: Context,
+        view: View,
+        menuPopupMenu: Int,
+        training: Training
+    ) {
+        val popup = PopupMenu(context, view)
+        popup.menuInflater.inflate(menuPopupMenu, popup.menu)
+        popup.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.edit_popup_menu -> {
+                    onLongPressEdit(training)
+                    true
+                }
+                R.id.delete_popup_menu -> {
+                    onLongPressDelete(training)
+                    true
+                }
+                else -> false
+            }
+        }
+        popup.show()
+    }
 
     fun updateList(listTraining: List<Training>) {
         fullList = listTraining.toMutableList()
@@ -30,6 +60,11 @@ class HomeAdapter(
 
                 root.setOnClickListener {
                     onClick(currentItem)
+                }
+
+                root.setOnLongClickListener {
+                    showMenu(it.context, it ,R.menu.menu_popup_training_fragment, currentItem)
+                    true
                 }
             }
         }

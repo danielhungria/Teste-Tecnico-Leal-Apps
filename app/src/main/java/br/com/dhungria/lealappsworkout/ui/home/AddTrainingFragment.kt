@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import br.com.dhungria.lealappsworkout.constants.Constants.TRAINING_LIST_TO_EDIT
 import br.com.dhungria.lealappsworkout.databinding.AddTrainingFragmentBinding
+import br.com.dhungria.lealappsworkout.models.Training
 import br.com.dhungria.lealappsworkout.viewmodel.AddTrainingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,6 +19,8 @@ class AddTrainingFragment: Fragment() {
     private lateinit var binding: AddTrainingFragmentBinding
 
     private val viewModel: AddTrainingViewModel by viewModels()
+
+    private val trainingListToEdit by lazy { arguments?.getParcelable<Training>(TRAINING_LIST_TO_EDIT) }
 
 
     private fun setupItemBackMenuBar(){
@@ -36,7 +40,15 @@ class AddTrainingFragment: Fragment() {
             )
             findNavController().popBackStack()
         }
+    }
 
+    private fun setupAccordingToEditMode(training: Training?) = with(binding){
+        training?.run {
+            viewModel.setupEditMode(id)
+            editTextName.setText(name.toString())
+            editTextDescription.setText(description)
+            //editTextDate
+        }
     }
 
     override fun onCreateView(
@@ -51,6 +63,7 @@ class AddTrainingFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupItemBackMenuBar()
+        setupAccordingToEditMode(trainingListToEdit)
         setupListener()
     }
 
