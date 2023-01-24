@@ -4,12 +4,13 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
+import java.util.*
 
 @Entity(tableName = "exercise_table")
 @Parcelize
 data class Exercise(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    val id: String = UUID.randomUUID().toString(),
     val name: Int = 0,
     val observation: String = "",
     val image: String? = "",

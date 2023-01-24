@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.dhungria.lealappsworkout.models.Training
 import br.com.dhungria.lealappsworkout.repositories.TrainingRepository
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,8 +22,6 @@ class TrainingViewModel @Inject constructor(
     val trainingList: LiveData<List<Training>>
         get() = _trainingList
 
-    private var trainingId = "0"
-
     private var isEditMode = false
 
     fun fetchScreenList() {
@@ -34,15 +34,18 @@ class TrainingViewModel @Inject constructor(
 
     fun onItemSwiped(training: Training) = viewModelScope.launch {
         trainingRepository.delete(training)
+        Firebase.firestore
+            .collection("Training")
+            .document(training.name.toString())
+            .delete()
     }
 
     fun delete(training: Training) = viewModelScope.launch {
         trainingRepository.delete(training)
-    }
-
-    fun setupEditMode(trainingId: Int){
-//        this.trainingId = trainingId
-        isEditMode = true
+        Firebase.firestore
+            .collection("Training")
+            .document(training.name.toString())
+            .delete()
     }
 
     fun insertTraining(

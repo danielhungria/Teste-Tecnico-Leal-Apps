@@ -44,7 +44,7 @@ class AddTrainingViewModel @Inject constructor(private val trainingRepository: T
         }
     }
 
-    fun saveFire(name:String, description: String){
+    fun saveOnFirebase(name:String, description: String){
 
         val trainingMap = hashMapOf(
             "id" to trainingId,

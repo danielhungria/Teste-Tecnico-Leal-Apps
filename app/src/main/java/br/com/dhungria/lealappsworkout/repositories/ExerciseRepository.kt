@@ -16,4 +16,6 @@ class ExerciseRepository @Inject constructor(private val exerciseDao: ExerciseDa
 
     suspend fun update(exercise: Exercise) = exerciseDao.update(exercise)
 
+    suspend fun getAllWithId(exerciseID: String) = exerciseDao.getAllWithId(exerciseID)
+
 }

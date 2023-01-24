@@ -1,12 +1,14 @@
 package br.com.dhungria.lealappsworkout.ui.exercise
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -19,7 +21,9 @@ import br.com.dhungria.lealappsworkout.constants.Constants.TRAINING_LIST_TO_EDIT
 import br.com.dhungria.lealappsworkout.databinding.ExerciseFragmentBinding
 import br.com.dhungria.lealappsworkout.models.Training
 import br.com.dhungria.lealappsworkout.viewmodel.ExerciseViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ExerciseFragment : Fragment() {
@@ -87,6 +91,29 @@ class ExerciseFragment : Fragment() {
         }).attachToRecyclerView(binding.recyclerExerciseFragment)
     }
 
+    private fun getFirestoreData() {
+        FirebaseFirestore.getInstance()
+            .collection("Exercise")
+            .get()
+            .addOnSuccessListener { items ->
+                Log.i("firebase", "getFirestoreData: ${items.documents}")
+                for (i in items) {
+                    Log.i("firebase", "getFirestoreData: ${i.data}")
+                    lifecycleScope.launch {
+                        if (!viewModel.firebaseVerification(i.data["id"].toString())) {
+                            viewModel.insertExercise(
+                                id = i.data["id"].toString(),
+                                name = i.data["name"].toString(),
+                                observation = i.data["observation"].toString(),
+                                image = i.data["image"].toString(),
+                                idTraining = i.data["idTraining"].toString()
+                            )
+                        }
+                    }
+                }
+            }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -110,6 +137,7 @@ class ExerciseFragment : Fragment() {
             viewModel.setup(it)
         }
         viewModel.fetchScreenList()
+        getFirestoreData()
     }
 
 }

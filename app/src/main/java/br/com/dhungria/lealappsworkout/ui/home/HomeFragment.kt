@@ -86,7 +86,7 @@ class HomeFragment : Fragment() {
                 Log.i("firebase", "getFirestoreData: ${items.documents}")
                 for (i in items) {
                     Log.i("firebase", "getFirestoreData: ${i.data}")
-                    lifecycleScope.launch{
+                    lifecycleScope.launch {
                         if (!viewModel.firebaseVerification(i.data["id"].toString())) {
                             viewModel.insertTraining(
                                 id = i.data["id"].toString(),

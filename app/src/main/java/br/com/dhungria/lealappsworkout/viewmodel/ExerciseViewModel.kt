@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import br.com.dhungria.lealappsworkout.models.Exercise
 import br.com.dhungria.lealappsworkout.models.Training
 import br.com.dhungria.lealappsworkout.repositories.ExerciseRepository
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,6 +24,9 @@ class ExerciseViewModel @Inject constructor(
     val exerciseList: LiveData<List<Exercise>>
         get() = _exerciseList
 
+    private var isEditMode = false
+
+
     fun setup(idTraining: String) {
         this.idTraining = idTraining
     }
@@ -34,12 +39,48 @@ class ExerciseViewModel @Inject constructor(
         }
     }
 
+    fun insertExercise(
+        id: String,
+        name: String,
+        observation: String,
+        image: String? = "",
+        idTraining: String?
+    ){
+        viewModelScope.launch {
+            val saveExercise = Exercise(
+                id = id,
+                name = name.toInt(),
+                observation = observation,
+                image = image,
+                idTraining = idTraining
+            )
+            if (isEditMode){
+                exerciseRepository.update(saveExercise)
+            }else{
+                exerciseRepository.insert(saveExercise)
+            }
+
+        }
+    }
+
     fun onItemSwiped(exercise: Exercise) = viewModelScope.launch {
         exerciseRepository.delete(exercise)
+        Firebase.firestore
+            .collection("Exercise")
+            .document(exercise.name.toString())
+            .delete()
     }
 
     fun delete(exercise: Exercise) = viewModelScope.launch {
         exerciseRepository.delete(exercise)
+        Firebase.firestore
+            .collection("Exercise")
+            .document(exercise.name.toString())
+            .delete()
+    }
+
+    suspend fun firebaseVerification(exerciseID: String): Boolean {
+        return (exerciseRepository.getAllWithId(exerciseID))
     }
 
 }
