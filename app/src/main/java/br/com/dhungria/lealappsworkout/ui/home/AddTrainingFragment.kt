@@ -1,6 +1,7 @@
 package br.com.dhungria.lealappsworkout.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,10 @@ import br.com.dhungria.lealappsworkout.constants.Constants.TRAINING_LIST_TO_EDIT
 import br.com.dhungria.lealappsworkout.databinding.AddTrainingFragmentBinding
 import br.com.dhungria.lealappsworkout.models.Training
 import br.com.dhungria.lealappsworkout.viewmodel.AddTrainingViewModel
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class AddTrainingFragment: Fragment() {
@@ -38,8 +42,13 @@ class AddTrainingFragment: Fragment() {
                 name = editTextName.text.toString(),
                 description = editTextDescription.text.toString()
             )
+            saveOnFirebase()
             findNavController().popBackStack()
         }
+    }
+
+    private fun saveOnFirebase() = with(binding) {
+        viewModel.saveFire(editTextName.text.toString(), editTextDescription.text.toString())
     }
 
     private fun setupAccordingToEditMode(training: Training?) = with(binding){

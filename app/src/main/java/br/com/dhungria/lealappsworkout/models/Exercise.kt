@@ -13,5 +13,5 @@ data class Exercise(
     val name: Int = 0,
     val observation: String = "",
     val image: String? = "",
-    val idTraining: Int?
+    val idTraining: String?
 ): Parcelable

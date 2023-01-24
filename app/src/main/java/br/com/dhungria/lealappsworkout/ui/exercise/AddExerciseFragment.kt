@@ -25,7 +25,7 @@ class AddExerciseFragment: Fragment() {
 
     private val viewModel: AddExerciseViewModel by viewModels()
 
-    private val trainingListId by lazy { arguments?.getInt(TRAINING_LIST_ID) }
+    private val trainingListId by lazy { arguments?.getString(TRAINING_LIST_ID) }
 
     private val exerciseList by lazy { arguments?.getParcelable<Exercise>(EXERCISE_LIST_TO_EDIT) }
 

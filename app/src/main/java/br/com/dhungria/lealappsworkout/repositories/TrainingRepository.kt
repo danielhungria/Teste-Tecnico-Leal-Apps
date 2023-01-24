@@ -8,6 +8,8 @@ class TrainingRepository @Inject constructor(private val trainingDao: TrainingDa
 
     fun getAll() = trainingDao.getAll()
 
+    suspend fun getAllWithId(trainingID: String) = trainingDao.getAllWithId(trainingID)
+
     suspend fun insert(training: Training) = trainingDao.insert(training)
 
     suspend fun delete(training: Training) = trainingDao.delete(training)

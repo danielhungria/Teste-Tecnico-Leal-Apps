@@ -16,13 +16,13 @@ class ExerciseViewModel @Inject constructor(
     private val exerciseRepository: ExerciseRepository
 ) : ViewModel() {
 
-    private var idTraining: Int = 0
+    private var idTraining: String = "0"
 
     private val _exerciseList = MutableLiveData<List<Exercise>>()
     val exerciseList: LiveData<List<Exercise>>
         get() = _exerciseList
 
-    fun setup(idTraining: Int) {
+    fun setup(idTraining: String) {
         this.idTraining = idTraining
     }
 
