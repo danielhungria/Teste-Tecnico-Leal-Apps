@@ -49,6 +49,8 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:textAlignment="center"
+        android:maxLines="1"
+        android:ellipsize="end"
         />
 
     <TextView
@@ -64,6 +66,8 @@
         android:textSize="10sp"
         android:textStyle="italic"
         android:textAlignment="center"
+        android:maxLines="1"
+        android:ellipsize="end"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

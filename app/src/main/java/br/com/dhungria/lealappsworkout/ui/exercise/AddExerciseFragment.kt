@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,7 +20,7 @@ import br.com.dhungria.lealappsworkout.viewmodel.AddTrainingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddExerciseFragment: Fragment() {
+class AddExerciseFragment : Fragment() {
 
     private lateinit var binding: AddTrainingFragmentBinding
 
@@ -32,13 +33,16 @@ class AddExerciseFragment: Fragment() {
     private var url: String? = null
 
 
-    private fun setupItemBackMenuBar(){
+    private fun setupItemBackMenuBar() {
         binding.toolbarExerciseFragment.setOnClickListener {
             findNavController().popBackStack()
         }
     }
 
-    private fun setupListener() = with(binding){
+    private fun setupListener() = with(binding) {
+
+        cardViewAddTraining.visibility = View.VISIBLE
+
         editTextInputLayoutName.hint = "Type number of exercise"
         editTextInputLayoutDescription.hint = "Type observation of exercise"
 
@@ -51,26 +55,31 @@ class AddExerciseFragment: Fragment() {
         }
 
         buttonDoneAddTrainingFragment.setOnClickListener {
-            viewModel.insertExercise(
-                name = editTextName.text.toString(),
-                observation = editTextDescription.text.toString(),
-                idTraining = trainingListId,
-                image = url
-            )
-        findNavController().popBackStack()
+            if (!editTextName.text.isNullOrBlank() &&
+                !editTextDescription.text.isNullOrBlank()
+            ) {
+                viewModel.insertExercise(
+                    name = editTextName.text.toString(),
+                    observation = editTextDescription.text.toString(),
+                    idTraining = trainingListId,
+                    image = url
+                )
+                findNavController().popBackStack()
+            } else {
+                Toast.makeText(requireContext(), "Preencha todos os campos", Toast.LENGTH_LONG)
+                    .show()
+            }
         }
     }
 
 
-
-    private fun setupAccordingToEditMode(exercise: Exercise?) = with(binding){
+    private fun setupAccordingToEditMode(exercise: Exercise?) = with(binding) {
         exercise?.run {
             url = exercise.image
             viewModel.setupEditMode(id)
             editTextName.setText(name.toString())
             editTextDescription.setText(observation)
             imageViewAddTraining.tryLoadImage(image)
-            //editTextDate
         }
     }
 

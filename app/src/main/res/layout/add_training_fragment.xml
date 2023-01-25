@@ -40,7 +40,8 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView_add_training_fragment">
+        app:layout_constraintTop_toBottomOf="@+id/cardView_add_training_fragment"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/imageView_add_training"
@@ -58,14 +59,16 @@
         android:layout_margin="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView_add_training">
+        app:layout_constraintTop_toBottomOf="@+id/cardView_add_training"
+        app:counterMaxLength="5">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Type number of training"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxLength="5" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,24 +90,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editText_InputLayout_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_InputLayout_description"
-        android:visibility="invisible">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Type date of training" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_date_picker_add_training"
         android:layout_width="wrap_content"
@@ -112,7 +97,9 @@
         app:layout_constraintTop_toBottomOf="@id/editText_InputLayout_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textview_date_add_training_fragment"
+        android:visibility="invisible"
         android:layout_marginTop="20dp"
+        android:text="select date"
         app:icon="@drawable/ic_baseline_edit_calendar_24"/>
 
     <TextView
@@ -121,6 +108,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         tools:text="01/01/2023"
+        android:visibility="invisible"
         app:layout_constraintTop_toTopOf="@id/button_date_picker_add_training"
         app:layout_constraintBottom_toBottomOf="@+id/button_date_picker_add_training"
         app:layout_constraintStart_toEndOf="@id/button_date_picker_add_training"
@@ -133,6 +121,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="30dp"
         android:text="Done"
+        android:backgroundTint="#48AF7F"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 

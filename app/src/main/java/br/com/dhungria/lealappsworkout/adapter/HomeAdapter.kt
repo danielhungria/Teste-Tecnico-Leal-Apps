@@ -48,6 +48,7 @@ class HomeAdapter(
 
     fun updateList(listTraining: List<Training>) {
         fullList = listTraining.toMutableList()
+
         submitList(fullList)
     }
 

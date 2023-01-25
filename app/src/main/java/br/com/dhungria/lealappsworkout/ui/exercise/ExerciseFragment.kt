@@ -1,14 +1,12 @@
 package br.com.dhungria.lealappsworkout.ui.exercise
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -21,9 +19,7 @@ import br.com.dhungria.lealappsworkout.constants.Constants.TRAINING_LIST_TO_EDIT
 import br.com.dhungria.lealappsworkout.databinding.ExerciseFragmentBinding
 import br.com.dhungria.lealappsworkout.models.Training
 import br.com.dhungria.lealappsworkout.viewmodel.ExerciseViewModel
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ExerciseFragment : Fragment() {
@@ -49,6 +45,7 @@ class ExerciseFragment : Fragment() {
 
 
     private fun setupItemBackMenuBar() {
+        binding.toolbarExerciseFragment.title = "Treino ${trainingList?.name.toString()}"
         binding.toolbarExerciseFragment.setOnClickListener {
             findNavController().popBackStack()
         }

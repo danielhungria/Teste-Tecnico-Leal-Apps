@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 import java.util.*
-import com.google.firebase.Timestamp
 
 @Entity(tableName = "training_table")
 @Parcelize

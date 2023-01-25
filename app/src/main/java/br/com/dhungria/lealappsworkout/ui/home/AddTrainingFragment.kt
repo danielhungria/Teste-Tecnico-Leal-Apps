@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,37 +24,56 @@ import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.DurationUnit
 
 @AndroidEntryPoint
-class AddTrainingFragment: Fragment() {
+class AddTrainingFragment : Fragment() {
 
     private lateinit var binding: AddTrainingFragmentBinding
 
     private val viewModel: AddTrainingViewModel by viewModels()
 
-    private val trainingListToEdit by lazy { arguments?.getParcelable<Training>(TRAINING_LIST_TO_EDIT) }
+    private val trainingListToEdit by lazy {
+        arguments?.getParcelable<Training>(
+            TRAINING_LIST_TO_EDIT
+        )
+    }
 
 
-    private fun setupItemBackMenuBar(){
+    private fun setupItemBackMenuBar() {
         binding.toolbarExerciseFragment.setOnClickListener {
             findNavController().popBackStack()
         }
     }
 
-    private fun setupListener() = with(binding){
-        cardViewAddTraining.visibility = View.GONE
+    private fun setupListener() = with(binding) {
+        buttonDatePickerAddTraining.visibility = View.VISIBLE
+        textviewDateAddTrainingFragment.visibility = View.VISIBLE
 
         buttonDoneAddTrainingFragment.setOnClickListener {
-            val date = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(textviewDateAddTrainingFragment.text.toString())?.time?:0
-            viewModel.insertTraining(
-                name = editTextName.text.toString(),
-                description = editTextDescription.text.toString(),
-                data = date
-            )
-            findNavController().popBackStack()
+
+
+            if (!editTextName.text.isNullOrBlank() &&
+                !editTextDescription.text.isNullOrBlank() &&
+                !textviewDateAddTrainingFragment.text.isNullOrBlank()
+            ) {
+                val date = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(
+                    textviewDateAddTrainingFragment.text.toString()
+                )?.time ?: 0
+
+                viewModel.insertTraining(
+                    name = editTextName.text.toString(),
+                    description = editTextDescription.text.toString(),
+                    data = date
+                )
+                findNavController().popBackStack()
+            } else {
+                Toast.makeText(requireContext(), "Preencha todos os campos", Toast.LENGTH_LONG)
+                    .show()
+            }
+
         }
     }
 
 
-    private fun setupAccordingToEditMode(training: Training?) = with(binding){
+    private fun setupAccordingToEditMode(training: Training?) = with(binding) {
 
         training?.run {
             val dateFormatted =
@@ -71,6 +91,7 @@ class AddTrainingFragment: Fragment() {
     private fun setupDatePicker() {
 
         val calendar = Calendar.getInstance()
+
 
         binding.buttonDatePickerAddTraining.setOnClickListener {
 

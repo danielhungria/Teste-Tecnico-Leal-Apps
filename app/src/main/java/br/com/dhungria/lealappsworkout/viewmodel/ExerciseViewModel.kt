@@ -6,6 +6,7 @@ import br.com.dhungria.lealappsworkout.models.Exercise
 import br.com.dhungria.lealappsworkout.models.Training
 import br.com.dhungria.lealappsworkout.repositories.ExerciseRepository
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -60,7 +61,7 @@ class ExerciseViewModel @Inject constructor(
         exerciseRepository.delete(exercise)
         Firebase.firestore
             .collection("Exercise")
-            .document(exercise.name.toString())
+            .document(exercise.id)
             .delete()
     }
 
@@ -68,13 +69,14 @@ class ExerciseViewModel @Inject constructor(
         exerciseRepository.delete(exercise)
         Firebase.firestore
             .collection("Exercise")
-            .document(exercise.name.toString())
+            .document(exercise.id)
             .delete()
     }
 
     fun getRepositoryData() {
         FirebaseFirestore.getInstance()
             .collection("Exercise")
+            .orderBy("name", Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { items ->
                 viewModelScope.launch {
