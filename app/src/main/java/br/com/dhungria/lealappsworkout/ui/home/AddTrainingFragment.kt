@@ -131,9 +131,9 @@ class AddTrainingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         validateFields()
         setupItemBackMenuBar()
-        setupAccordingToEditMode(trainingListToEdit)
         setupListener()
         setupDatePicker()
+        setupAccordingToEditMode(trainingListToEdit)
     }
 
 }
