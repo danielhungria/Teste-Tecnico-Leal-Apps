@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.dhungria.lealappsworkout.R
 import br.com.dhungria.lealappsworkout.databinding.CardviewRecyclerHomeFragmentBinding
 import br.com.dhungria.lealappsworkout.models.Training
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeAdapter(
     val onClick: (Training) -> Unit,
@@ -57,6 +59,13 @@ class HomeAdapter(
             binding.apply {
                 textviewTrainCardRecycler.text = currentItem.name.toString()
                 textviewTrainDescriptionCardRecycler.text = currentItem.description
+
+                val dateFormatted =
+                    SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
+                        timeZone = TimeZone.getTimeZone("UTC")
+                    }.format(Date(currentItem.date))
+
+                textviewTrainDateCardRecycler.text = dateFormatted
 
                 root.setOnClickListener {
                     onClick(currentItem)

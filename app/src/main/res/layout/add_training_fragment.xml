@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -103,6 +104,27 @@
             android:hint="Type date of training" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_date_picker_add_training"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/editText_InputLayout_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textview_date_add_training_fragment"
+        android:layout_marginTop="20dp"
+        app:icon="@drawable/ic_baseline_edit_calendar_24"/>
+
+    <TextView
+        android:id="@+id/textview_date_add_training_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        tools:text="01/01/2023"
+        app:layout_constraintTop_toTopOf="@id/button_date_picker_add_training"
+        app:layout_constraintBottom_toBottomOf="@+id/button_date_picker_add_training"
+        app:layout_constraintStart_toEndOf="@id/button_date_picker_add_training"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/button_done_add_training_fragment"

@@ -57,22 +57,15 @@ class AddExerciseFragment: Fragment() {
                 idTraining = trainingListId,
                 image = url
             )
-            saveOnFirebase()
-            findNavController().popBackStack()
+        findNavController().popBackStack()
         }
     }
 
-    private fun saveOnFirebase() = with(binding) {
-        viewModel.saveOnFirebase(
-            editTextName.text.toString(),
-            editTextDescription.text.toString(),
-            url,
-            trainingListId
-        )
-    }
+
 
     private fun setupAccordingToEditMode(exercise: Exercise?) = with(binding){
         exercise?.run {
+            url = exercise.image
             viewModel.setupEditMode(id)
             editTextName.setText(name.toString())
             editTextDescription.setText(observation)

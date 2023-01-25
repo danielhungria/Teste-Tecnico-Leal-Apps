@@ -22,4 +22,7 @@ interface TrainingDao {
     @Update
     suspend fun update(training: Training)
 
+    @Query("DELETE FROM training_table")
+    suspend fun deleteAll()
+
 }

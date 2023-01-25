@@ -1,16 +1,16 @@
 package br.com.dhungria.lealappsworkout.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import br.com.dhungria.lealappsworkout.models.Exercise
 import br.com.dhungria.lealappsworkout.models.Training
 import br.com.dhungria.lealappsworkout.repositories.ExerciseRepository
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,8 +23,6 @@ class ExerciseViewModel @Inject constructor(
     private val _exerciseList = MutableLiveData<List<Exercise>>()
     val exerciseList: LiveData<List<Exercise>>
         get() = _exerciseList
-
-    private var isEditMode = false
 
 
     fun setup(idTraining: String) {
@@ -39,7 +37,7 @@ class ExerciseViewModel @Inject constructor(
         }
     }
 
-    fun insertExercise(
+    private fun insertExercise(
         id: String,
         name: String,
         observation: String,
@@ -54,12 +52,7 @@ class ExerciseViewModel @Inject constructor(
                 image = image,
                 idTraining = idTraining
             )
-            if (isEditMode){
-                exerciseRepository.update(saveExercise)
-            }else{
-                exerciseRepository.insert(saveExercise)
-            }
-
+            exerciseRepository.insert(saveExercise)
         }
     }
 
@@ -79,8 +72,26 @@ class ExerciseViewModel @Inject constructor(
             .delete()
     }
 
-    suspend fun firebaseVerification(exerciseID: String): Boolean {
-        return (exerciseRepository.getAllWithId(exerciseID))
+    fun getRepositoryData() {
+        FirebaseFirestore.getInstance()
+            .collection("Exercise")
+            .get()
+            .addOnSuccessListener { items ->
+                viewModelScope.launch {
+                    exerciseRepository.deleteAll()
+                    items.forEach { item ->
+                        item.run {
+                            insertExercise(
+                                id = data["id"].toString(),
+                                name = data["name"].toString(),
+                                observation = data["observation"].toString(),
+                                image = data["image"].toString(),
+                                idTraining = data["idTraining"].toString()
+                            )
+                        }
+                    }
+                }
+            }
     }
 
 }

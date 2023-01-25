@@ -91,29 +91,6 @@ class ExerciseFragment : Fragment() {
         }).attachToRecyclerView(binding.recyclerExerciseFragment)
     }
 
-    private fun getFirestoreData() {
-        FirebaseFirestore.getInstance()
-            .collection("Exercise")
-            .get()
-            .addOnSuccessListener { items ->
-                Log.i("firebase", "getFirestoreData: ${items.documents}")
-                for (i in items) {
-                    Log.i("firebase", "getFirestoreData: ${i.data}")
-                    lifecycleScope.launch {
-                        if (!viewModel.firebaseVerification(i.data["id"].toString())) {
-                            viewModel.insertExercise(
-                                id = i.data["id"].toString(),
-                                name = i.data["name"].toString(),
-                                observation = i.data["observation"].toString(),
-                                image = i.data["image"].toString(),
-                                idTraining = i.data["idTraining"].toString()
-                            )
-                        }
-                    }
-                }
-            }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -137,7 +114,7 @@ class ExerciseFragment : Fragment() {
             viewModel.setup(it)
         }
         viewModel.fetchScreenList()
-        getFirestoreData()
+        viewModel.getRepositoryData()
     }
 
 }

@@ -1,11 +1,10 @@
 package br.com.dhungria.lealappsworkout.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import br.com.dhungria.lealappsworkout.models.Training
 import br.com.dhungria.lealappsworkout.repositories.TrainingRepository
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -48,29 +47,48 @@ class TrainingViewModel @Inject constructor(
             .delete()
     }
 
-    fun insertTraining(
+    private fun insertTraining(
         id: String,
         name: String,
-        description: String
-    ){
+        description: String,
+        date: Long
+    ) {
         viewModelScope.launch {
             val saveTraining = Training(
                 id = id,
                 name = name.toInt(),
-                description = description
+                description = description,
+                date = date
             )
 
-            if (isEditMode){
+            if (isEditMode) {
                 trainingRepository.update(saveTraining)
-            }else{
+            } else {
                 trainingRepository.insert(saveTraining)
             }
 
         }
     }
 
-    suspend fun firebaseVerification(trainingID: String): Boolean {
-        return (trainingRepository.getAllWithId(trainingID))
+    fun getFirestoreData() {
+        FirebaseFirestore.getInstance()
+            .collection("Training")
+            .get()
+            .addOnSuccessListener { items ->
+                viewModelScope.launch {
+                    trainingRepository.deleteAll()
+                    items.forEach { item ->
+                        item.run {
+                            insertTraining(
+                                id = data["id"].toString(),
+                                name = data["name"].toString(),
+                                description = data["description"].toString(),
+                                date = data["date"].toString().toLong()
+                            )
+                        }
+                    }
+                }
+            }
     }
 
 }

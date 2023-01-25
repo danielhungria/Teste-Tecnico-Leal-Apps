@@ -10,7 +10,7 @@ fun ImageView.tryLoadImage(
 ){
     load(url) {
         fallback(fallback)
-        error(R.drawable.erro)
+        error(R.drawable.imagem_padrao)
         placeholder(R.drawable.placeholder)
     }
 }

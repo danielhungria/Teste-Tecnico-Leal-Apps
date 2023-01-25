@@ -18,4 +18,6 @@ class ExerciseRepository @Inject constructor(private val exerciseDao: ExerciseDa
 
     suspend fun getAllWithId(exerciseID: String) = exerciseDao.getAllWithId(exerciseID)
 
+    suspend fun deleteAll() = exerciseDao.deleteAll()
+
 }

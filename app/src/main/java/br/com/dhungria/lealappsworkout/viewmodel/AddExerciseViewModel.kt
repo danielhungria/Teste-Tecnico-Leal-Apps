@@ -29,7 +29,7 @@ class AddExerciseViewModel @Inject constructor(private val exerciseRepository: E
     fun insertExercise(
         name: String,
         observation: String,
-        image: String? = "",
+        image: String?,
         idTraining: String?
     ){
         viewModelScope.launch {
@@ -37,43 +37,20 @@ class AddExerciseViewModel @Inject constructor(private val exerciseRepository: E
                 id = exerciseID,
                 name = name.toInt(),
                 observation = observation,
-                image = image,
+                image = image ?: "",
                 idTraining = idTraining
             )
+            Firebase.firestore
+                .collection("Exercise")
+                .document(exerciseID)
+                .set(saveExercise)
+
             if (isEditMode){
                 exerciseRepository.update(saveExercise)
             }else{
                 exerciseRepository.insert(saveExercise)
             }
-
         }
+
     }
-
-    fun saveOnFirebase(
-        name: String,
-        description: String,
-        image: String?,
-        idTraining: String?
-    ){
-
-        val exerciseMap = hashMapOf(
-            "id" to exerciseID,
-            "name" to name.toInt(),
-            "observation" to description,
-            "image" to image,
-            "idTraining" to idTraining
-        )
-
-        Firebase.firestore
-            .collection("Exercise")
-            .document(name)
-            .set(exerciseMap)
-            .addOnSuccessListener {
-                Log.i("firebase", "insertExercise: $it")
-            }
-            .addOnFailureListener {
-                Log.i("firebase", "insertExercise: $it")
-            }
-    }
-
 }

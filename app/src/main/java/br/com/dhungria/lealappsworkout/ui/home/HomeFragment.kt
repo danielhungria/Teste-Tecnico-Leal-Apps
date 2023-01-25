@@ -18,8 +18,8 @@ import br.com.dhungria.lealappsworkout.adapter.HomeAdapter
 import br.com.dhungria.lealappsworkout.constants.Constants.TRAINING_LIST_TO_EDIT
 import br.com.dhungria.lealappsworkout.databinding.HomeFragmentBinding
 import br.com.dhungria.lealappsworkout.viewmodel.TrainingViewModel
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -78,28 +78,6 @@ class HomeFragment : Fragment() {
         }).attachToRecyclerView(binding.recyclerHomeFragment)
     }
 
-    private fun getFirestoreData() {
-        FirebaseFirestore.getInstance()
-            .collection("Training")
-            .get()
-            .addOnSuccessListener { items ->
-                Log.i("firebase", "getFirestoreData: ${items.documents}")
-                for (i in items) {
-                    Log.i("firebase", "getFirestoreData: ${i.data}")
-                    lifecycleScope.launch {
-                        if (!viewModel.firebaseVerification(i.data["id"].toString())) {
-                            viewModel.insertTraining(
-                                id = i.data["id"].toString(),
-                                name = i.data["name"].toString(),
-                                description = i.data["description"].toString()
-                            )
-                        }
-                    }
-                }
-            }
-    }
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -118,7 +96,7 @@ class HomeFragment : Fragment() {
             homeAdapter.updateList(it)
         }
         viewModel.fetchScreenList()
-        getFirestoreData()
+        viewModel.getFirestoreData()
     }
 
 

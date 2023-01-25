@@ -20,12 +20,16 @@ interface ExerciseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(exercise: Exercise)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(exercise: List<Exercise>)
+
     @Delete
     suspend fun delete(exercise: Exercise)
 
     @Update
     suspend fun update(exercise: Exercise)
 
-
+    @Query("DELETE FROM exercise_table")
+    suspend fun deleteAll()
 
 }
