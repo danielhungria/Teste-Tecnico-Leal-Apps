@@ -1,6 +1,6 @@
 <h1>Teste técnico Leal Apps</h1>
 
-<h4> O teste tem como objetivo gerenciar treinos de musculação. Nesta aplicação deve ser possível realizar CRUD (criação, listagem, atualização, remoção) sobre as entidades TREINO e EXERCÍCIO</h4>
+<h4> O teste tem como objetivo gerenciar treinos de musculação. Nesta aplicação deve ser possível realizar CRUD sobre as entidades TREINO e EXERCÍCIO</h4>
 
 <h3>ScreenShots</h3>
 
