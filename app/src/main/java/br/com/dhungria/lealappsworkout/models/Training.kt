@@ -13,5 +13,6 @@ data class Training(
     val id: String = UUID.randomUUID().toString(),
     val name: Int = 0,
     val description: String = "",
-    val date: Long
+    val date: Long,
+    val image: String? = ""
 ): Parcelable

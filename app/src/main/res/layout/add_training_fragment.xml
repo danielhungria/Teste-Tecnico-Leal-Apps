@@ -40,8 +40,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView_add_training_fragment"
-        android:visibility="gone">
+        app:layout_constraintTop_toBottomOf="@+id/cardView_add_training_fragment">
 
         <ImageView
             android:id="@+id/imageView_add_training"
@@ -60,7 +59,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView_add_training"
-        app:counterMaxLength="5">
+        app:counterMaxLength="5"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_name"
@@ -80,7 +80,8 @@
         android:layout_margin="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_InputLayout_name">
+        app:layout_constraintTop_toBottomOf="@+id/editText_InputLayout_name"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_description"

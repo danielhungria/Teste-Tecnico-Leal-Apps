@@ -12,13 +12,11 @@ import br.com.dhungria.lealappsworkout.R
 import br.com.dhungria.lealappsworkout.databinding.CardviewRecyclerExercisesFragmentBinding
 import br.com.dhungria.lealappsworkout.extensions.tryLoadImage
 import br.com.dhungria.lealappsworkout.models.Exercise
-import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
 
 class ExerciseAdapter(
     val onLongPressEdit: (Exercise) -> Unit,
     val onLongPressDelete: (Exercise) -> Unit
-): ListAdapter<Exercise, ExerciseAdapter.ViewHolder>(DiffCallback()) {
+) : ListAdapter<Exercise, ExerciseAdapter.ViewHolder>(DiffCallback()) {
 
     private var fullList = mutableListOf<Exercise>()
 
@@ -51,7 +49,7 @@ class ExerciseAdapter(
         popup.show()
     }
 
-    inner class ViewHolder (
+    inner class ViewHolder(
         private val binding: CardviewRecyclerExercisesFragmentBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -62,7 +60,7 @@ class ExerciseAdapter(
                 imageviewTrainCardRecyclerExercise.tryLoadImage(currentItem.image)
 
                 root.setOnLongClickListener {
-                    showMenu(it.context, it , R.menu.menu_popup_training_fragment, currentItem)
+                    showMenu(it.context, it, R.menu.menu_popup_training_fragment, currentItem)
                     true
                 }
             }
@@ -70,7 +68,11 @@ class ExerciseAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = CardviewRecyclerExercisesFragmentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = CardviewRecyclerExercisesFragmentBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return ViewHolder(binding)
     }
 

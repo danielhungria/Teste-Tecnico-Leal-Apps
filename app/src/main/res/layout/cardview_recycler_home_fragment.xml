@@ -27,7 +27,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/textview_train_card_recycler"
-                android:src="@drawable/exercise1"/>
+                android:src="@drawable/exercise1"
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:id="@+id/textview_train_card_recycler"

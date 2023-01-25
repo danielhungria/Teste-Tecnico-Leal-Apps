@@ -1,14 +1,12 @@
 package br.com.dhungria.lealappsworkout.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -18,10 +16,7 @@ import br.com.dhungria.lealappsworkout.adapter.HomeAdapter
 import br.com.dhungria.lealappsworkout.constants.Constants.TRAINING_LIST_TO_EDIT
 import br.com.dhungria.lealappsworkout.databinding.HomeFragmentBinding
 import br.com.dhungria.lealappsworkout.viewmodel.TrainingViewModel
-import com.google.firebase.Timestamp
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {

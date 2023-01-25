@@ -1,12 +1,9 @@
 package br.com.dhungria.lealappsworkout.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.dhungria.lealappsworkout.models.Exercise
-import br.com.dhungria.lealappsworkout.models.Training
 import br.com.dhungria.lealappsworkout.repositories.ExerciseRepository
-import br.com.dhungria.lealappsworkout.repositories.TrainingRepository
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,13 +12,14 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class AddExerciseViewModel @Inject constructor(private val exerciseRepository: ExerciseRepository) : ViewModel() {
+class AddExerciseViewModel @Inject constructor(private val exerciseRepository: ExerciseRepository) :
+    ViewModel() {
 
     private var exerciseID = UUID.randomUUID().toString()
 
     private var isEditMode = false
 
-    fun setupEditMode(exerciseID: String){
+    fun setupEditMode(exerciseID: String) {
         this.exerciseID = exerciseID
         isEditMode = true
     }
@@ -31,7 +29,7 @@ class AddExerciseViewModel @Inject constructor(private val exerciseRepository: E
         observation: String,
         image: String?,
         idTraining: String?
-    ){
+    ) {
         viewModelScope.launch {
             val saveExercise = Exercise(
                 id = exerciseID,
@@ -45,9 +43,9 @@ class AddExerciseViewModel @Inject constructor(private val exerciseRepository: E
                 .document(exerciseID)
                 .set(saveExercise)
 
-            if (isEditMode){
+            if (isEditMode) {
                 exerciseRepository.update(saveExercise)
-            }else{
+            } else {
                 exerciseRepository.insert(saveExercise)
             }
         }

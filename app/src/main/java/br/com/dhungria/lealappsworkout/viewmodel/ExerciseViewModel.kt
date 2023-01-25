@@ -1,9 +1,10 @@
 package br.com.dhungria.lealappsworkout.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import br.com.dhungria.lealappsworkout.models.Exercise
-import br.com.dhungria.lealappsworkout.models.Training
 import br.com.dhungria.lealappsworkout.repositories.ExerciseRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -11,7 +12,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,7 +44,7 @@ class ExerciseViewModel @Inject constructor(
         observation: String,
         image: String? = "",
         idTraining: String?
-    ){
+    ) {
         viewModelScope.launch {
             val saveExercise = Exercise(
                 id = id,

@@ -1,9 +1,11 @@
 package br.com.dhungria.lealappsworkout.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import br.com.dhungria.lealappsworkout.models.Training
 import br.com.dhungria.lealappsworkout.repositories.TrainingRepository
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
@@ -53,14 +55,16 @@ class TrainingViewModel @Inject constructor(
         id: String,
         name: String,
         description: String,
-        date: Long
+        date: Long,
+        image: String? = ""
     ) {
         viewModelScope.launch {
             val saveTraining = Training(
                 id = id,
                 name = name.toInt(),
                 description = description,
-                date = date
+                date = date,
+                image = image
             )
 
             if (isEditMode) {
@@ -86,7 +90,8 @@ class TrainingViewModel @Inject constructor(
                                 id = data["id"].toString(),
                                 name = data["name"].toString(),
                                 description = data["description"].toString(),
-                                date = data["date"].toString().toLong()
+                                date = data["date"].toString().toLong(),
+                                image = data["image"].toString()
                             )
                         }
                     }

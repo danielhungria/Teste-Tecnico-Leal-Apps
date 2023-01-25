@@ -1,14 +1,9 @@
 package br.com.dhungria.lealappsworkout
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import br.com.dhungria.lealappsworkout.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

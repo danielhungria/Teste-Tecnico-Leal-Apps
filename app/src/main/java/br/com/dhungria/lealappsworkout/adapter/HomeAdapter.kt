@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.dhungria.lealappsworkout.R
 import br.com.dhungria.lealappsworkout.databinding.CardviewRecyclerHomeFragmentBinding
+import br.com.dhungria.lealappsworkout.extensions.tryLoadImage
 import br.com.dhungria.lealappsworkout.models.Training
 import java.text.SimpleDateFormat
 import java.util.*
@@ -60,6 +61,7 @@ class HomeAdapter(
             binding.apply {
                 textviewTrainCardRecycler.text = currentItem.name.toString()
                 textviewTrainDescriptionCardRecycler.text = currentItem.description
+                imageviewTrainCardRecyclerExercise.tryLoadImage(currentItem.image)
 
                 val dateFormatted =
                     SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
@@ -73,7 +75,7 @@ class HomeAdapter(
                 }
 
                 root.setOnLongClickListener {
-                    showMenu(it.context, it ,R.menu.menu_popup_training_fragment, currentItem)
+                    showMenu(it.context, it, R.menu.menu_popup_training_fragment, currentItem)
                     true
                 }
             }
