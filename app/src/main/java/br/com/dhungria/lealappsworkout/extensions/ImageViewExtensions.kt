@@ -6,11 +6,11 @@ import coil.load
 
 fun ImageView.tryLoadImage(
     url: String? = null,
-    fallback: Int = R.drawable.imagem_padrao
-){
+    fallback: Int = R.drawable.image_default
+) {
     load(url) {
         fallback(fallback)
-        error(R.drawable.imagem_padrao)
+        error(R.drawable.image_default)
         placeholder(R.drawable.placeholder)
     }
 }

@@ -4,6 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.dhungria.lealappsworkout.constants.Constants.COLLECTION_PATH_FIREBASE_TRAINING
+import br.com.dhungria.lealappsworkout.constants.Constants.DATE
+import br.com.dhungria.lealappsworkout.constants.Constants.DESCRIPTION
+import br.com.dhungria.lealappsworkout.constants.Constants.ID
+import br.com.dhungria.lealappsworkout.constants.Constants.IMAGE
+import br.com.dhungria.lealappsworkout.constants.Constants.NAME
 import br.com.dhungria.lealappsworkout.models.Training
 import br.com.dhungria.lealappsworkout.repositories.TrainingRepository
 import com.google.firebase.firestore.FirebaseFirestore
@@ -38,7 +44,7 @@ class TrainingViewModel @Inject constructor(
     fun onItemSwiped(training: Training) = viewModelScope.launch {
         trainingRepository.delete(training)
         Firebase.firestore
-            .collection("Training")
+            .collection(COLLECTION_PATH_FIREBASE_TRAINING)
             .document(training.id)
             .delete()
     }
@@ -46,7 +52,7 @@ class TrainingViewModel @Inject constructor(
     fun delete(training: Training) = viewModelScope.launch {
         trainingRepository.delete(training)
         Firebase.firestore
-            .collection("Training")
+            .collection(COLLECTION_PATH_FIREBASE_TRAINING)
             .document(training.id)
             .delete()
     }
@@ -78,8 +84,8 @@ class TrainingViewModel @Inject constructor(
 
     fun getFirestoreData() {
         FirebaseFirestore.getInstance()
-            .collection("Training")
-            .orderBy("name", Query.Direction.ASCENDING)
+            .collection(COLLECTION_PATH_FIREBASE_TRAINING)
+            .orderBy(NAME, Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { items ->
                 viewModelScope.launch {
@@ -87,11 +93,11 @@ class TrainingViewModel @Inject constructor(
                     items.forEach { item ->
                         item.run {
                             insertTraining(
-                                id = data["id"].toString(),
-                                name = data["name"].toString(),
-                                description = data["description"].toString(),
-                                date = data["date"].toString().toLong(),
-                                image = data["image"].toString()
+                                id = data[ID].toString(),
+                                name = data[NAME].toString(),
+                                description = data[DESCRIPTION].toString(),
+                                date = data[DATE].toString().toLong(),
+                                image = data[IMAGE].toString()
                             )
                         }
                     }

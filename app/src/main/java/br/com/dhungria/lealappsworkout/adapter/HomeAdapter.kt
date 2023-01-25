@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.dhungria.lealappsworkout.R
+import br.com.dhungria.lealappsworkout.constants.Constants.DATE_DEFAULT
+import br.com.dhungria.lealappsworkout.constants.Constants.UTC_TIMEZONE
 import br.com.dhungria.lealappsworkout.databinding.CardviewRecyclerHomeFragmentBinding
 import br.com.dhungria.lealappsworkout.extensions.tryLoadImage
 import br.com.dhungria.lealappsworkout.models.Training
@@ -64,8 +66,8 @@ class HomeAdapter(
                 imageviewTrainCardRecyclerExercise.tryLoadImage(currentItem.image)
 
                 val dateFormatted =
-                    SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
-                        timeZone = TimeZone.getTimeZone("UTC")
+                    SimpleDateFormat(DATE_DEFAULT, Locale.getDefault()).apply {
+                        timeZone = TimeZone.getTimeZone(UTC_TIMEZONE)
                     }.format(Date(currentItem.date))
 
                 textviewTrainDateCardRecycler.text = dateFormatted

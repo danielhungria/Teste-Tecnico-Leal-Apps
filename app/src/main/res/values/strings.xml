@@ -8,4 +8,24 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="load_image">Load Image</string>
+    <string name="image_url">Image URL</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="insert_number_of_exercise">insert number of exercise</string>
+    <string name="insert_observation">Insert Observation</string>
+    <string name="fill_all_fields">Fill all fields</string>
+    <string name="type_number_exercise">Type number of exercise</string>
+    <string name="type_observation_exercise">Type observation of exercise</string>
+    <string name="toolbar_name_training">Training %1$s</string>
+    <string name="insert_number_of_training">Insert Number of Training</string>
+    <string name="insert_description">Insert a description</string>
+    <string name="type_number_of_training">Type number of training</string>
+    <string name="type_description_of_training">Type description of training</string>
+    <string name="select_date">select date</string>
+    <string name="done">Done</string>
+    <string name="your">YOUR</string>
+    <string name="exercises">EXERCISES</string>
+    <string name="hi_user">Hi, User</string>
+    <string name="let_s_train_yourself">Let\'s Train Yourself</string>
 </resources>

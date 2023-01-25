@@ -4,6 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.dhungria.lealappsworkout.constants.Constants.COLLECTION_PATH_FIREBASE_EXERCISE
+import br.com.dhungria.lealappsworkout.constants.Constants.ID
+import br.com.dhungria.lealappsworkout.constants.Constants.ID_TRAINING
+import br.com.dhungria.lealappsworkout.constants.Constants.IMAGE
+import br.com.dhungria.lealappsworkout.constants.Constants.NAME
+import br.com.dhungria.lealappsworkout.constants.Constants.OBSERVATION
 import br.com.dhungria.lealappsworkout.models.Exercise
 import br.com.dhungria.lealappsworkout.repositories.ExerciseRepository
 import com.google.firebase.firestore.FirebaseFirestore
@@ -60,7 +66,7 @@ class ExerciseViewModel @Inject constructor(
     fun onItemSwiped(exercise: Exercise) = viewModelScope.launch {
         exerciseRepository.delete(exercise)
         Firebase.firestore
-            .collection("Exercise")
+            .collection(COLLECTION_PATH_FIREBASE_EXERCISE)
             .document(exercise.id)
             .delete()
     }
@@ -68,15 +74,15 @@ class ExerciseViewModel @Inject constructor(
     fun delete(exercise: Exercise) = viewModelScope.launch {
         exerciseRepository.delete(exercise)
         Firebase.firestore
-            .collection("Exercise")
+            .collection(COLLECTION_PATH_FIREBASE_EXERCISE)
             .document(exercise.id)
             .delete()
     }
 
     fun getRepositoryData() {
         FirebaseFirestore.getInstance()
-            .collection("Exercise")
-            .orderBy("name", Query.Direction.ASCENDING)
+            .collection(COLLECTION_PATH_FIREBASE_EXERCISE)
+            .orderBy(NAME, Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { items ->
                 viewModelScope.launch {
@@ -84,11 +90,11 @@ class ExerciseViewModel @Inject constructor(
                     items.forEach { item ->
                         item.run {
                             insertExercise(
-                                id = data["id"].toString(),
-                                name = data["name"].toString(),
-                                observation = data["observation"].toString(),
-                                image = data["image"].toString(),
-                                idTraining = data["idTraining"].toString()
+                                id = data[ID].toString(),
+                                name = data[NAME].toString(),
+                                observation = data[OBSERVATION].toString(),
+                                image = data[IMAGE].toString(),
+                                idTraining = data[ID_TRAINING].toString()
                             )
                         }
                     }

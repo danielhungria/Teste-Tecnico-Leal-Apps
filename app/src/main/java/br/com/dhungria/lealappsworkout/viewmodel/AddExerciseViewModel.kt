@@ -2,6 +2,7 @@ package br.com.dhungria.lealappsworkout.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.dhungria.lealappsworkout.constants.Constants.COLLECTION_PATH_FIREBASE_EXERCISE
 import br.com.dhungria.lealappsworkout.models.Exercise
 import br.com.dhungria.lealappsworkout.repositories.ExerciseRepository
 import com.google.firebase.firestore.ktx.firestore
@@ -28,27 +29,33 @@ class AddExerciseViewModel @Inject constructor(private val exerciseRepository: E
         name: String,
         observation: String,
         image: String?,
-        idTraining: String?
+        idTraining: String?,
+        closeScreen: () -> Unit,
+        onError: () -> Unit
     ) {
-        viewModelScope.launch {
-            val saveExercise = Exercise(
-                id = exerciseID,
-                name = name.toInt(),
-                observation = observation,
-                image = image ?: "",
-                idTraining = idTraining
-            )
-            Firebase.firestore
-                .collection("Exercise")
-                .document(exerciseID)
-                .set(saveExercise)
+        if (name.isNotBlank() &&
+            observation.isNotBlank()
+        ) {
+            viewModelScope.launch {
+                val saveExercise = Exercise(
+                    id = exerciseID,
+                    name = name.toInt(),
+                    observation = observation,
+                    image = image ?: "",
+                    idTraining = idTraining
+                )
+                Firebase.firestore
+                    .collection(COLLECTION_PATH_FIREBASE_EXERCISE)
+                    .document(exerciseID)
+                    .set(saveExercise)
 
-            if (isEditMode) {
-                exerciseRepository.update(saveExercise)
-            } else {
-                exerciseRepository.insert(saveExercise)
+                if (isEditMode) {
+                    exerciseRepository.update(saveExercise)
+                } else {
+                    exerciseRepository.insert(saveExercise)
+                }
+                closeScreen()
             }
-        }
-
+        } else onError()
     }
 }

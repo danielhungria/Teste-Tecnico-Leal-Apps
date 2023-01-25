@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.LealAppsWorkout" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.LealAppsWorkout" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#48AF7F</item>
         <item name="colorPrimaryVariant">#222222</item>
@@ -10,7 +10,8 @@
         <item name="colorSecondaryVariant">#48AF7F</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">#397C5D</item>
+        <item name="android:statusBarColor">#397C5D</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <!-- Customize your theme here. -->
     </style>
 

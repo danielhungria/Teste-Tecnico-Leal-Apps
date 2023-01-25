@@ -6,17 +6,14 @@ import javax.inject.Inject
 
 class ExerciseRepository @Inject constructor(private val exerciseDao: ExerciseDao) {
 
-    fun getAll() = exerciseDao.getAll()
-
-    fun getAllExercisesOfTraining(idTraining: String) = exerciseDao.getAllExercisesOfTraining(idTraining)
+    fun getAllExercisesOfTraining(idTraining: String) =
+        exerciseDao.getAllExercisesOfTraining(idTraining)
 
     suspend fun insert(exercise: Exercise) = exerciseDao.insert(exercise)
 
     suspend fun delete(exercise: Exercise) = exerciseDao.delete(exercise)
 
     suspend fun update(exercise: Exercise) = exerciseDao.update(exercise)
-
-    suspend fun getAllWithId(exerciseID: String) = exerciseDao.getAllWithId(exerciseID)
 
     suspend fun deleteAll() = exerciseDao.deleteAll()
 

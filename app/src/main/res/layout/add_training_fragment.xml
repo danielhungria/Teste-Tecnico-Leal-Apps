@@ -53,14 +53,17 @@
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView_add_training_fragment">
+                app:layout_constraintTop_toBottomOf="@+id/cardView_add_training_fragment"
+                android:backgroundTint="#C1C1C1"
+                >
 
                 <ImageView
                     android:id="@+id/imageView_add_training"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/imagem_padrao" />
+                    android:src="@drawable/ic_add_photo_alternate"
+                  />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -79,7 +82,7 @@
                     android:id="@+id/editText_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Type number of training"
+                    android:hint="@string/type_number_of_training"
                     android:inputType="number"
                     android:maxLength="5" />
 
@@ -100,7 +103,7 @@
                     android:id="@+id/editText_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Type description of training" />
+                    android:hint="@string/type_description_of_training" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="select date"
+                android:text="@string/select_date"
                 android:visibility="invisible"
                 app:icon="@drawable/ic_baseline_edit_calendar_24"
                 app:layout_constraintEnd_toStartOf="@+id/textview_date_add_training_fragment"
@@ -141,7 +144,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="30dp"
         android:backgroundTint="#48AF7F"
-        android:text="Done"
+        android:text="@string/done"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 

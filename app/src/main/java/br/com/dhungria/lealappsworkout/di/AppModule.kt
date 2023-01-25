@@ -2,8 +2,7 @@ package br.com.dhungria.lealappsworkout.di
 
 import android.content.Context
 import androidx.room.Room
-import br.com.dhungria.lealappsworkout.data.database.ExerciseDatabase
-import br.com.dhungria.lealappsworkout.data.database.TrainingDatabase
+import br.com.dhungria.lealappsworkout.data.database.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,29 +14,25 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Singleton
-    @Provides
-    fun provideDatabaseTraining(
-        @ApplicationContext context: Context
-    ) = Room.databaseBuilder(context, TrainingDatabase::class.java, "training.database")
-            .build()
 
     @Singleton
     @Provides
-    fun provideDatabaseExercise(
+    fun provideAppDatabase(
         @ApplicationContext context: Context
-    ) = Room.databaseBuilder(context, ExerciseDatabase::class.java, "exercise.database")
+    ) = Room.databaseBuilder(context, AppDatabase::class.java, "app.database")
         .build()
 
 
+    @Singleton
     @Provides
     fun providesTrainingDao(
-        db: TrainingDatabase
+        db: AppDatabase
     ) = db.getTrainingDao()
 
+    @Singleton
     @Provides
     fun providesExerciseDao(
-        db: ExerciseDatabase
+        db: AppDatabase
     ) = db.getExerciseDao()
 
 

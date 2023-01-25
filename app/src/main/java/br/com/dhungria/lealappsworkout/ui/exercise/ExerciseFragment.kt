@@ -45,8 +45,9 @@ class ExerciseFragment : Fragment() {
 
 
     private fun setupItemBackMenuBar() {
-        binding.toolbarExerciseFragment.title = "Treino ${trainingList?.name.toString()}"
-        binding.toolbarExerciseFragment.setOnClickListener {
+        binding.toolbarExerciseFragment.title =
+            getString(R.string.toolbar_name_training, trainingList?.name.toString())
+        binding.toolbarExerciseFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

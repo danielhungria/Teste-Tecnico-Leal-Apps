@@ -10,9 +10,6 @@ interface TrainingDao {
     @Query("SELECT * FROM training_table")
     fun getAll(): Flow<List<Training>>
 
-    @Query("SELECT EXISTS (SELECT * FROM training_table WHERE id = :trainingID)")
-    suspend fun getAllWithId(trainingID: String): Boolean
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(training: Training)
 
